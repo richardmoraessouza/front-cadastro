@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    padding-top: 100px;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+form {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 30px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #2E2D4E;
+    max-width: 50%;
+    width: 400px;
+
+    input {
+        border: 1px solid #48456C;
+        border-radius: 30px;
+        height: 40px;
+        background-color: #363653;
+        outline: none;
+        font-size: 16px;
+        color: #ffff;
+        padding-left: 10px;
+    }
+
+    input[type="button"] {
+      border-radius: 30px;
+      background-color: #8B8AE1;
+      height: 40px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      color: #ffff;
+      &:hover {
+        opacity: 0.8;
+      }
+   }
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    background-color: #2E2D4E;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 400px;
+    font-weight: bold;
+
+}
+
+.lixeira {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: red;
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.cadastro{
+    background-color: #8B8AE1;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+    }
+}
