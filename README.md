@@ -211,4 +211,11 @@ Desenvolvido com ❤️ por Richard Moreaes Souza
 
 ---
 
+## 🌍 Contato
+
+- 💼 [LinkedIn](https://www.linkedin.com/in/richard-moraes-souza-998539338/)
+- 🌐 [Portfólio](https://richardmoraessouza.github.io/Portf-lio/)
+- 📱 [WhatsApp](https://wa.me/5547999326217?text=Olá%20Richard%2C%20encontrei%20seu%20perfil%20no%20GitHub!)
+- 📧 Email: richardmoraessouza2006@gmail
+
 **Nota**: Certifique-se de que o MySQL está rodando e o banco de dados 'react' existe antes de executar o backend.
