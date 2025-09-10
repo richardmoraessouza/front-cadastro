@@ -1,5 +1,6 @@
 import styles from "./style.module.scss"
 import { useEffect, useState } from "react"
+import api from "../../services/api"
 
 function Index() {
   const [usuarios, setUsuarios] = useState([])
@@ -29,45 +30,34 @@ function Index() {
     setEmail("")
     setIdade("")
   }
-  // Função para deletar usuário
+ 
   async function deletarUsuario(id) {
     setCarregando(true)
     try {
-      const res = await fetch(`http://localhost:8000/api/usuarios/${id}/`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      })
-      
-      if (res.ok) {
-        setMensagem("Usuário deletado permanentemente da API Django!")
-        await tentarConectarAPI() // Recarrega a lista
-      } else {
-        throw new Error(`Erro ${res.status}`)
-      }
+      await api.delete(`/api/usuarios/${id}/`)
+      setMensagem("Usuário deletado permanentemente.")
+      await tentarConectarAPI() 
     } catch (error) {
       setMensagem("Erro na API. Usuário deletado apenas localmente.")
-      // Deleta localmente se a API falhar
+     
       setUsuarios(usuarios.filter(usuario => usuario.id !== id))
     } finally {
       setCarregando(false)
     }
   }
 
-  // Função para tentar conectar com a API
+ 
   async function tentarConectarAPI() {
     try {
-      const res = await fetch("http://localhost:8000/api/usuarios/")
-      if (res.ok) {
-        const data = await res.json()
-        setUsuarios(data)
-        setMensagem("Conectado com a API Django!")
-      }
+      const response = await api.get("/api/usuarios/")
+      console.log('📊 Dados recebidos:', response.data)
+      setUsuarios(response.data)
     } catch (error) {
       setMensagem("API Django não está rodando. Usando modo local.")
     }
   }
 
-  // Função para enviar para API (se estiver rodando)
+  
   async function enviarParaAPI() {
     if (!nome || !idade || !email) {
       setMensagem("Preencha todos os campos!")
@@ -76,22 +66,16 @@ function Index() {
 
     setCarregando(true)
     try {
-      const res = await fetch("http://localhost:8000/api/usuarios/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, idade: Number(idade) }),
+      const response = await api.post("/api/usuarios/", {
+        nome,
+        email,
+        idade: Number(idade)
       })
       
-      if (res.ok) {
-        const data = await res.json()
-        setMensagem("Usuário salvo na API Django!")
-        setNome("")
-        setEmail("")
-        setIdade("")
-        await tentarConectarAPI()
-      } else {
-        throw new Error(`Erro ${res.status}`)
-      }
+      setNome("")
+      setEmail("")
+      setIdade("")
+      await tentarConectarAPI()
     } catch (error) {
       setMensagem("Erro na API. Adicionando localmente...")
       adicionarUsuarioLocal()
@@ -101,6 +85,7 @@ function Index() {
   }
 
   useEffect(() => {
+    console.log('🔍 Iniciando conexão com API...')
     tentarConectarAPI()
   }, [])
 
@@ -168,7 +153,6 @@ function Index() {
           </button>
         </div>
       ))}
-      <p>teste</p>
     </div>
   )
 }

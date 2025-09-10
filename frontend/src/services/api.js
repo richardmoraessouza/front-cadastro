@@ -10,15 +10,16 @@ const API_URLS = {
 const isProduction = import.meta.env.PROD || 
                     window.location.hostname.includes('github.io');
 
-// URL da API baseada no ambiente
-const API_BASE_URL = isProduction ? API_URLS.production : API_URLS.development;
+// Força o uso da API de produção para teste
+const API_BASE_URL = API_URLS.production;
 
 // Configuração do axios
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-    }
+    },
+    withCredentials: false
 });
 
 // Interceptor para debug
